@@ -9,19 +9,7 @@ const router = require('express').Router();
 router.use('/category', categoryRouter)
 router.use('/task', taskRouter);
 router.use('/user', userRouter);
-router.use('/auth', authRouter);
-
-
-
-
-
-
-
-
-
-
-
-
+router.use('/auth', authRouter)
 
 
 module.exports = router

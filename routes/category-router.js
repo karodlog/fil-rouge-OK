@@ -33,13 +33,13 @@ const categoryRouter = express.Router();
 // VERSUS VERSION B
 
 categoryRouter.route('/')
-.get((req, res)=> {res.sendStatus(501);}) //récup de toutes les cat.
-.post((req, res)=> {res.sendStatus(501);})
+    .get((req, res)=> {res.sendStatus(501);}) //récup de toutes les cat.
+    .post((req, res)=> {res.sendStatus(501);})
 
 categoryRouter.route('/:id')
-.get((req, res)=> {res.sendStatus(501);})
-.post((req, res)=> {res.sendStatus(501);})
-.delete((req, res)=> {res.sendStatus(501);})
+    .get((req, res)=> {res.sendStatus(501);})
+    .post((req, res)=> {res.sendStatus(501);})
+    .delete((req, res)=> {res.sendStatus(501);})
 
 // on exporte notre routeur
 module.exports = categoryRouter
