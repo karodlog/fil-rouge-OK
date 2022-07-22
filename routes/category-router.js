@@ -3,6 +3,10 @@
 const express = require('express');
 const categoryRouter = express.Router();
 
+//import du controller category
+const categoryController = require('../controllers/category-controller');
+
+
 
 
 // création des routes VERSION A
@@ -33,13 +37,13 @@ const categoryRouter = express.Router();
 // VERSUS VERSION B
 
 categoryRouter.route('/')
-    .get((req, res)=> {res.sendStatus(501);}) //récup de toutes les cat.
-    .post((req, res)=> {res.sendStatus(501);})
+    .get(categoryController.getAll) //récup de toutes les cat.
+    .post(categoryController.create)
 
 categoryRouter.route('/:id')
-    .get((req, res)=> {res.sendStatus(501);})
-    .post((req, res)=> {res.sendStatus(501);})
-    .delete((req, res)=> {res.sendStatus(501);})
+    .get(categoryController.getById)
+    .put(categoryController.update)
+    .delete(categoryController.delete)
 
 // on exporte notre routeur
 module.exports = categoryRouter

@@ -25,7 +25,7 @@ const app = express();
 // })
 
 
-
+app.use(express.json());
 
 
 // on indique à notre app que pour chaque requête, elle doit l'intercepter
