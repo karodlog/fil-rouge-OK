@@ -33,14 +33,42 @@ const categoryController = {
         res.status(200).json(categoryToAdd);
 
     },
-    update :async (req, res)=> {
-        console.log(`Modification de la catégorie dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    update: async (req, res) => {
+        //1) on récupère l'id passé en paramètre
+        const id = req.params.id;
+        //findByIdAndUpate(id, {}, {})
+        //Premier param : id
+        //Deuxième param : object avec les éléments à remplacer
+        //Troisième : les options
+        const category = await Category.findByIdAndUpdate(id, {
+            name: req.body.name,
+            icon: req.body.icon
+        }, { returnDocument: 'after'}); 
+        //Le comportement par défaut du findByIdAndUpdate renvoie l'élément avant qu'il ne soit modifier
+        //Si on veut récupérer l'élément après modification, on devra rajouter l'option returnDocument : 'after'
+        if(category){
+            res.status(200).json(category);
+        }
+        else {
+            res.sendStatus(404);
+        }
     },
-    delete :async (req, res)=> {
-        console.log(`Suppression de la catégorie dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    delete: async (req, res) => {
+        //1) on récupère l'id passé en paramètre
+        const id = req.params.id;
+        //La fonction findByIdAndDelete renvoie l'élément qui été delete si trouvé, sinon, renvoie null
+        const categoryToDelete = await Category.findByIdAndDelete(id);
+        //On doit vérifier si categoryToDelete n'est pas null
+        if(categoryToDelete){
+            res.sendStatus(204) //La requête a réussi mais l'appli client n'a pas besoin de quitter la page
+            //res.sendStatus(200) //Fonctionne aussi, ce sera soit l'une soit l'autre
+        }
+        else {
+            res.sendStatus(404); //-> Si categoryToDelete est null, c'est que l'id recherché n'existe pas : Not found
+        }
     }
+
+
 
     //opérations CRUD
     //C -> Create
