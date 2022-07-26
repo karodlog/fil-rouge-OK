@@ -20,7 +20,7 @@ const categoryController = {
         }
         else{
             // si la cat est null, on renvoie une erreur 404 -> ressource not found
-            res.sendStatus(404);
+            return res.sendStatus(404);
         }
 
     },
@@ -50,7 +50,7 @@ const categoryController = {
             res.status(200).json(category);
         }
         else {
-            res.sendStatus(404);
+            return res.sendStatus(404);
         }
     },
     delete: async (req, res) => {
@@ -64,7 +64,7 @@ const categoryController = {
             //res.sendStatus(200) //Fonctionne aussi, ce sera soit l'une soit l'autre
         }
         else {
-            res.sendStatus(404); //-> Si categoryToDelete est null, c'est que l'id recherché n'existe pas : Not found
+            return res.sendStatus(404); //-> Si categoryToDelete est null, c'est que l'id recherché n'existe pas : Not found
         }
     }
 

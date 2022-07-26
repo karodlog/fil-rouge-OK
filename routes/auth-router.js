@@ -1,14 +1,17 @@
 
 const express = require('express');
+const authController = require('../controllers/auth-controller');
+const bodyValidation = require('../middlewares/body-validation');
+const { registerValidator, loginValidator } = require('../validators/auth-validator');
 const authRouter = express.Router();
 
 
 
 
 authRouter.route('/login')
-    .post((req, res)=> {res.sendStatus(501);}) //récup de toutes les cat.
+    .post(bodyValidation(loginValidator), authController.login) //récup de toutes les cat.
 authRouter.route('/register')
-    .post((req, res)=> {res.sendStatus(501);}) //récup de toutes les cat.
+    .post(bodyValidation(registerValidator), authController.register) //récup de toutes les cat.
 
 
 // on exporte notre routeur

@@ -6,9 +6,11 @@ console.log(`Lancé en ${NODE_ENV} ${MESSAGE}`,);
 
 // création d'un serveur express: A FAIRE EN PREMIER
 const express = require('express');
+//on importe la lib qui gère les erreurs asyns await (à mettre avant require (lesroutes))
+require('express-async-errors');
+//on importe notre module router
 const router = require('./routes')
 
-require('express-async-errors');
 
 // import du module mongoose
 const mongoose = require('mongoose');

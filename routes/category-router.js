@@ -5,6 +5,10 @@ const categoryRouter = express.Router();
 
 //import du controller category
 const categoryController = require('../controllers/category-controller');
+const authentication = require('../middlewares/auth-jwt-middleware');
+const bodyValidation = require('../middlewares/body-validation');
+const idValidator = require('../middlewares/idValidator');
+const categoryValidator = require('../validators/category-validator');
 
 
 
@@ -36,14 +40,15 @@ const categoryController = require('../controllers/category-controller');
 
 // VERSUS VERSION B
 
+
 categoryRouter.route('/')
-    .get(categoryController.getAll) //récup de toutes les cat.
-    .post(categoryController.create)
+.get(categoryController.getAll) //récup de toutes les cat.
+.post(authentication(['User', 'Moderator', 'Admin']), bodyValidation(categoryValidator), categoryController.create)
 
 categoryRouter.route('/:id')
-    .get(categoryController.getById)
-    .put(categoryController.update)
-    .delete(categoryController.delete)
+    .get(idValidator(), categoryController.getById) //récupération d'une catégorie en particulier
+    .put(authentication(['Admin', 'Moderator']), idValidator(), bodyValidation(categoryValidator), categoryController.update)
+    .delete(authentication(['Admin']), idValidator(), categoryController.delete)
 
 // on exporte notre routeur
 module.exports = categoryRouter
