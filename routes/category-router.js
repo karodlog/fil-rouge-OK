@@ -42,11 +42,11 @@ const categoryValidator = require('../validators/category-validator');
 
 
 categoryRouter.route('/')
-.get(categoryController.getAll) //récup de toutes les cat.
-.post(authentication(['User', 'Moderator', 'Admin']), bodyValidation(categoryValidator), categoryController.create)
+.get(authentication(), categoryController.getAll) //récup de toutes les cat.
+.post(authentication(['Moderator', 'Admin']), bodyValidation(categoryValidator), categoryController.create)
 
 categoryRouter.route('/:id')
-    .get(idValidator(), categoryController.getById) //récupération d'une catégorie en particulier
+    .get(authentication(), idValidator(), categoryController.getById) //récupération d'une catégorie en particulier
     .put(authentication(['Admin', 'Moderator']), idValidator(), bodyValidation(categoryValidator), categoryController.update)
     .delete(authentication(['Admin']), idValidator(), categoryController.delete)
 

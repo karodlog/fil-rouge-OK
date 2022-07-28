@@ -10,7 +10,7 @@ const authentication = require('../middlewares/auth-jwt-middleware');
 
 
 userRouter.route('/')
-    .get(userController.getAll) //récup de toutes les cat.
+    .get(authentication(), userController.getAll) //récup de toutes les cat.
 
 userRouter.route('/:id')
     .get(authentication(), idValidator(), userController.getByID)
